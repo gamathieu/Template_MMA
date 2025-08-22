@@ -22,5 +22,13 @@
       {% endif %}
     </div>
   </div>
+
+  <h2 class="pad-y">Send us a message</h2>
+  <form method="post" class="form">
+    <label>Name<input type="text" name="name" required></label>
+    <label>Email<input type="email" name="email"></label>
+    <label>Message<textarea name="message" rows="4" required></textarea></label>
+    <button class="btn" type="submit">Send</button>
+  </form>
 </section>
 {% endblock %}
