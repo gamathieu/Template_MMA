@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="container pad-y">
+  <h1>Free Trial</h1>
+  {% if studio.appointment_link and not studio.use_internal_booking_form %}
+    <p><a class="btn" href="{{ studio.appointment_link }}" target="_blank" rel="noopener">Book via our scheduler</a></p>
+  {% else %}
+    <form method="post" class="form">
+      <label>Full Name<input type="text" name="name" required></label>
+      <label>Phone<input type="tel" name="phone" required></label>
+      <label>Email<input type="email" name="email"></label>
+      <label>Experience Level
+        <select name="level">
+          <option>Beginner</option>
+          <option>All-Levels</option>
+          <option>Intermediate</option>
+          <option>Advanced</option>
+        </select>
+      </label>
+      <label>Preferred Class
+        <select name="preferred_class">
+          {% for c in studio.classes %}
+            <option value="{{ c.name }}">{{ c.name }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label>Notes<textarea name="notes" rows="4" placeholder="Any injuries, goals, or schedule notes?"></textarea></label>
+      <button class="btn" type="submit">Request Trial</button>
+    </form>
+  {% endif %}
+</section>
+{% endblock %}

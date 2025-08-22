@@ -1,0 +1,52 @@
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#eaeaea;background:#0b0b0b}
+a{color:var(--secondary);text-decoration:none}
+.container{width:min(1100px,90%);margin-inline:auto}
+.site-header{background:var(--primary);color:#fff;border-bottom:1px solid #1e1e1e}
+.header-inner{display:flex;justify-content:space-between;align-items:center;padding:14px 0}
+.brand{display:flex;gap:10px;align-items:center;color:#fff}
+.logo-square{width:36px;height:36px;border-radius:6px;display:flex;align-items:center;justify-content:center;background:var(--secondary);color:#fff;font-weight:800}
+.brand-logo{height:36px;width:auto;border-radius:6px}
+.brand-text{font-weight:800;letter-spacing:.2px}
+nav a{color:#fff;margin-left:18px;opacity:.92}
+nav a:hover{opacity:1}
+
+.hero{
+  background:linear-gradient(135deg,var(--grad-start),var(--grad-end));
+  background-size:cover;background-position:center;
+  color:#fff;padding:90px 0
+}
+.hero-inner{max-width:720px}
+.ribbon{display:inline-block;background:#16a34a;padding:6px 10px;border-radius:6px;margin:12px 0;font-weight:600}
+.btn{display:inline-block;background:var(--secondary);color:#fff;padding:12px 18px;border-radius:10px;font-weight:700}
+.btn.ghost{background:transparent;color:var(--secondary);border:2px solid var(--secondary)}
+.small{font-size:.9rem}
+.muted{color:#b6b6b6}
+
+.pad-y{padding-block:48px}
+.grid-2{display:grid;grid-template-columns:1fr;gap:24px}
+@media (min-width:900px){.grid-2{grid-template-columns:1fr 1fr}}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.card{border:1px solid #1f1f1f;background:#121212;border-radius:14px;padding:16px}
+.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.level{font-weight:700;color:#ddd}
+.price{font-weight:800;color:#fff;background:#262626;border-radius:8px;padding:4px 8px}
+
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:10px
+}
+.gallery img{
+  width:100%;height:180px;object-fit:cover;border-radius:12px;
+  border:1px solid #1f1f1f;background:#121212
+}
+
+.coach-photo{
+  width:100%;height:180px;object-fit:cover;border-radius:12px;
+  border:1px solid #1f1f1f;background:#121212;margin-bottom:10px
+}
+
+.form{display:grid;gap:12px;max-width:520px}
+.form input,.form select,.fo

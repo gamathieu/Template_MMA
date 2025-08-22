@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="container pad-y">
+  <h1>Contact</h1>
+  <div class="grid-2">
+    <div>
+      <p><strong>Phone:</strong> <a href="tel:{{ studio.phone|replace(' ','') }}">{{ studio.phone }}</a></p>
+      <p><strong>Email:</strong> <a href="mailto:{{ studio.email }}">{{ studio.email }}</a></p>
+      <p><strong>Address:</strong> {{ studio.address }}</p>
+      <ul class="hours">
+        {% for h in studio.hours %}
+          <li><span>{{ h.days }}</span><span>{{ h.hours }}</span></li>
+        {% endfor %}
+      </ul>
+      <a class="btn" href="{{ url_for('trial') }}">Book Free Trial</a>
+    </div>
+    <div>
+      {% if studio.google_maps_embed %}
+        <iframe src="{{ studio.google_maps_embed }}" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      {% else %}
+        <div class="placeholder-box">Map placeholder</div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}

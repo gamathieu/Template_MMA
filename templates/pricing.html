@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="container pad-y">
+  <h1>Pricing</h1>
+  <div class="cards">
+    {% for p in studio.plans %}
+      <div class="card">
+        <div class="card-header">
+          <h3>{{ p.name }}</h3>
+          <span class="price">{{ p.price }}</span>
+        </div>
+        <p class="muted">{{ p.desc }}</p>
+        <a class="btn ghost" href="{{ url_for('trial') }}">Start with Free Trial</a>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

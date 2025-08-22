@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="container pad-y">
+  <h1>Classes</h1>
+  <div class="cards">
+    {% for c in studio.classes %}
+      <div class="card">
+        <div class="card-header">
+          <h3>{{ c.name }}</h3>
+          <span class="level">{{ c.level }}</span>
+        </div>
+        <p class="muted">{{ c.desc }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="container pad-y">
+  <h2>Weekly Schedule</h2>
+  <div class="schedule">
+    {% for day, slots in studio.schedule.items() %}
+      <div class="day">
+        <h4>{{ day }}</h4>
+        {% if slots and slots|length > 0 %}
+          <ul>{% for s in slots %}<li>{{ s }}</li>{% endfor %}</ul>
+        {% else %}
+          <p class="muted">No classes</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
