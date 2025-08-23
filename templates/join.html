@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero compact">
+  <div class="container center">
+    <h1>Join {{ studio.name }}</h1>
+    <p class="muted">Pick a class, drop your info, and we’ll confirm your start date.</p>
+  </div>
+</section>
+
+<section class="container grid-2">
+  <div>
+    <h3>Sign Up</h3>
+    <form method="post" class="card form">
+      <label>
+        <span>Full Name *</span>
+        <input type="text" name="name" required placeholder="Your name">
+      </label>
+
+      <div class="grid-2">
+        <label>
+          <span>Email</span>
+          <input type="email" name="email" placeholder="you@example.com">
+        </label>
+        <label>
+          <span>Phone</span>
+          <input type="tel" name="phone" placeholder="(555) 123-4567">
+        </label>
+      </div>
+
+      <label>
+        <span>Choose a Class *</span>
+        <select name="class_name" required>
+          <option value="" disabled selected>Select a class</option>
+          {% if classes_cfg and classes_cfg|length %}
+            {% for c in classes_cfg %}
+              <option value="{{ c.name }}">{{ c.name }}</option>
+            {% endfor %}
+          {% else %}
+            <!-- Fallback options if no config present -->
+            <option>Beginner MMA</option>
+            <option>Kickboxing Fundamentals</option>
+            <option>Jiu-Jitsu Basics</option>
+          {% endif %}
+        </select>
+      </label>
+
+      <label>
+        <span>Preferred Time</span>
+        <select name="timeslot">
+          <option value="" selected>No preference</option>
+          {% if classes_cfg and classes_cfg|length %}
+            {% for c in classes_cfg %}
+              {% if c.times %}
+                {% for t in c.times %}
+                  <option>{{ c.name }} — {{ t }}</option>
+                {% endfor %}
+              {% endif %}
+            {% endfor %}
+          {% else %}
+            <!-- Fallback times -->
+            <option>Mon 6:00 PM</option>
+            <option>Wed 6:00 PM</option>
+            <option>Sat 10:00 AM</option>
+          {% endif %}
+        </select>
+      </label>
+
+      <label>
+        <span>Notes</span>
+        <textarea name="notes" rows="4" placeholder="Training goals, injuries, experience…"></textarea>
+      </label>
+
+      <button class="btn primary" type="submit">Request to Join</button>
+      <p class="tiny muted">Submitting doesn’t charge you—our team will confirm availability first.</p>
+    </form>
+  </div>
+
+  <aside class="card">
+    <h3>What happens next?</h3>
+    <ul class="checklist">
+      <li>We receive your request instantly (saved securely on our side).</li>
+      <li>A coach reviews availability and reaches out to confirm.</li>
+      <li>We’ll share payment & start-date details.</li>
+    </ul>
+
+    {% if studio.appointment_link %}
+      <hr/>
+      <p class="muted">Prefer to book directly?</p>
+      <a class="btn" href="{{ studio.appointment_link }}" target="_blank" rel="noopener">Book via Scheduler</a>
+    {% endif %}
+  </aside>
+</section>
+{% endblock %}

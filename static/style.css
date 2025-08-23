@@ -2,24 +2,48 @@
 body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#eaeaea;background:#0b0b0b}
 a{color:var(--secondary);text-decoration:none}
 .container{width:min(1100px,90%);margin-inline:auto}
-.site-header{background:var(--primary);color:#fff;border-bottom:1px solid #1e1e1e}
-.header-inner{display:flex;justify-content:space-between;align-items:center;padding:14px 0}
-.brand{display:flex;gap:10px;align-items:center;color:#fff}
-.logo-square{width:36px;height:36px;border-radius:6px;display:flex;align-items:center;justify-content:center;background:var(--secondary);color:#fff;font-weight:800}
-.brand-logo{height:36px;width:auto;border-radius:6px}
-.brand-text{font-weight:800;letter-spacing:.2px}
-nav a{color:#fff;margin-left:18px;opacity:.92}
-nav a:hover{opacity:1}
 
+/* ===== Header & Nav (desktop + mobile) ===== */
+.site-header{position:sticky; top:0; z-index:1000; background:var(--primary,#0e0e0e); color:#fff; border-bottom:1px solid #1e1e1e}
+.header-inner{display:flex; align-items:center; justify-content:space-between; padding:12px 0}
+.brand{display:flex; align-items:center; gap:10px; color:#fff; min-width:0}
+.logo-square{width:36px;height:36px;border-radius:6px;display:flex;align-items:center;justify-content:center;background:var(--secondary,#1f1f1f);color:#fff;font-weight:800}
+.brand-logo{height:36px;width:auto;border-radius:6px}
+.brand-text{font-weight:800;letter-spacing:.2px;color:#fff;white-space:nowrap}
+
+/* desktop nav */
+.nav{display:flex; gap:18px}
+.nav a{color:#fff; opacity:.92}
+.nav a:hover{opacity:1}
+
+/* hamburger (hidden on desktop) */
+.nav-toggle{display:none}
+
+/* MAKE THE HAMBURGER VISIBLE */
+.nav-btn{
+  display:none; cursor:pointer; width:36px; height:30px;
+  align-items:center; justify-content:center;
+  padding:4px 6px; border-radius:8px;
+  background:rgba(255,255,255,.06);                 /* subtle pill so it doesn’t disappear */
+  border:1px solid rgba(255,255,255,.18);
+}
+.nav-btn span{
+  display:block; height:3px; width:100%;
+  background:var(--accent,#ff3b62) !important;       /* bright fallback, forced */
+  margin:4px 0; border-radius:2px;
+  transition:transform .2s ease, opacity .2s ease, background .2s ease;
+}
+
+/* ===== Hero & common UI ===== */
 .hero{
-  background:linear-gradient(135deg,var(--grad-start),var(--grad-end));
-  background-size:cover;background-position:center;
-  color:#fff;padding:90px 0
+  background:linear-gradient(135deg,var(--grad-start,#b91c1c),var(--grad-end,#ef4444));
+  background-size:cover; background-position:center;
+  color:#fff; padding:90px 0;
 }
 .hero-inner{max-width:720px}
 .ribbon{display:inline-block;background:#16a34a;padding:6px 10px;border-radius:6px;margin:12px 0;font-weight:600}
-.btn{display:inline-block;background:var(--secondary);color:#fff;padding:12px 18px;border-radius:10px;font-weight:700}
-.btn.ghost{background:transparent;color:var(--secondary);border:2px solid var(--secondary)}
+.btn{display:inline-block;background:var(--secondary,#1f2937);color:#fff;padding:12px 18px;border-radius:10px;font-weight:700}
+.btn.ghost{background:transparent;color:var(--secondary,#1f2937);border:2px solid var(--secondary,#1f2937)}
 .small{font-size:.9rem}
 .muted{color:#b6b6b6}
 
@@ -57,3 +81,24 @@ nav a:hover{opacity:1}
 .footer-grid{display:grid;gap:24px;grid-template-columns:1fr}
 @media (min-width:900px){.footer-grid{grid-template-columns:2fr 1fr 1.5fr}}
 .center{text-align:center;padding-top:10px}
+
+/* ===== Mobile nav behavior ===== */
+@media (max-width: 900px){
+  .brand-logo{height:32px}
+  .brand-text{font-size:1rem}
+
+  /* show hamburger, hide inline nav */
+  .nav-btn{display:flex}
+  .nav{display:none; position:absolute; left:0; right:0; top:100%;
+       background:#0d0d0d; border-top:1px solid #1e1e1e;
+       padding:10px 5%; flex-direction:column; gap:12px}
+  .nav a{padding:10px 0; font-size:1.05rem}
+
+  /* reveal menu when checked */
+  .nav-toggle:checked ~ .nav{display:flex}
+
+  /* animate hamburger into an X */
+  .nav-toggle:checked + .nav-btn span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+  .nav-toggle:checked + .nav-btn span:nth-child(2){opacity:0}
+  .nav-toggle:checked + .nav-btn span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+}

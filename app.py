@@ -71,5 +71,52 @@ def contact():
         return redirect(url_for("contact"))
     return render_template("contact.html")
 
+@app.route("/join", methods=["GET", "POST"])
+def join():
+    """
+    MVP 'Join' signup:
+    - Renders a form with class + timeslot options from config.studio (if present)
+    - Saves entries to data/join_requests.csv
+    - Shows flash on success
+    - Easy stubs for email/webhook later
+    """
+    # Example: pull classes/times from config if you have them
+    classes_cfg = studio.get("classes", [])
+    # Expect each item like: {"name": "Beginner MMA", "times": ["Mon 6pm", "Wed 6pm"]}
+    # but this will work even if it's an empty list
+
+    if request.method == "POST":
+        name   = request.form.get("name","").strip()
+        email  = request.form.get("email","").strip()
+        phone  = request.form.get("phone","").strip()
+        c_name = request.form.get("class_name","").strip()
+        slot   = request.form.get("timeslot","").strip()
+        notes  = request.form.get("notes","").strip()
+
+        if not name or not (email or phone) or not c_name:
+            flash("Please provide your name, a way to contact you, and select a class.")
+            return redirect(url_for("join"))
+
+        # Save to CSV
+        csv_path = DATA_DIR / "join_requests.csv"
+        is_new = not csv_path.exists()
+        with csv_path.open("a", newline="", encoding="utf-8") as f:
+            w = csv.writer(f)
+            if is_new:
+                w.writerow(["name","email","phone","class","timeslot","notes"])
+            w.writerow([name, email, phone, c_name, slot, notes])
+
+        # --- Optional integrations (uncomment & implement later) ---
+        # 1) Email the studio owner
+        # send_owner_email(subject="New Join Request", body=f"...")
+        # 2) Post to a webhook (Zapier/Make/Airtable/Sheets)
+        # post_webhook({"name": name, "email": email, ...})
+
+        flash("Thanks! We’ve received your request. We’ll confirm your spot shortly.")
+        return redirect(url_for("join"))
+
+    return render_template("join.html", classes_cfg=classes_cfg)
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=True)
